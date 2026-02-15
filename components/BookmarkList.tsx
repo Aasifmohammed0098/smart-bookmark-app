@@ -54,10 +54,11 @@ export default function BookmarkList({ user }: any) {
   return (
     <div className="mt-5">
 
-      <h2 className="text-xl font-bold mb-3 text-grey-800">Your Bookmarks</h2>
+      <h2 className="text-xl font-bold mb-3 text-grey-900">Your Bookmarks</h2>
 
       {bookmarks.map((bookmark) => (
-        <div key={bookmark.id} className="bg-white/70 backdrop-blur border rounded-lg p-4 mb-3 flex justify-between items-center hover:shadow-md transition">
+        <div key={bookmark.id} className="">
+        <div key={bookmark.id} className="">
 
           <div>
             <div className="flex items-center gap-2 font-semibold text-lg text-grey-800"> <Bookmark size={18} className="text-blue-500"/>

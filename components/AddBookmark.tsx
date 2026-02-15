@@ -35,7 +35,8 @@ export default function AddBookmark({ user }: any) {
 
   return (
 
-    <div className="bg-white/70 backdrop-blur rounded-lg p-4 shadow">
+      <h2 className="text-lg font-semibold mb-3 text-gray-800">
+    <div className="">
 
       <h2 className="text-lg font-semibold mb-3 text-gray-800">
         Add New Bookmark
@@ -47,7 +48,8 @@ export default function AddBookmark({ user }: any) {
           placeholder="Bookmark Title"
           value={title}
           onChange={(e)=>setTitle(e.target.value)}
-          className="border rounded p-2"
+        <div key={bookmark.id} className="">
+          className=""
         />
 
         <input
