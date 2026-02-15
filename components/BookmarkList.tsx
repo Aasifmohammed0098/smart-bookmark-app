@@ -6,7 +6,9 @@ import { supabase } from "@/lib/supabase"
 export default function BookmarkList({ user }: any) {
 
   const [bookmarks, setBookmarks] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
+  // Fetch bookmarks
   const fetchBookmarks = async () => {
 
     const { data, error } = await supabase
@@ -19,11 +21,36 @@ export default function BookmarkList({ user }: any) {
       setBookmarks(data)
     }
 
+    setLoading(false)
+  }
+
+  // Delete bookmark
+  const handleDelete = async (id: string) => {
+
+    const confirmDelete = confirm("Are you sure you want to delete this bookmark?")
+
+    if (!confirmDelete) return
+
+    const { error } = await supabase
+      .from("bookmarks")
+      .delete()
+      .eq("id", id)
+
+    if (!error) {
+      fetchBookmarks()
+    } else {
+      alert("Error deleting bookmark")
+    }
+
   }
 
   useEffect(() => {
     fetchBookmarks()
   }, [])
+
+  if (loading) {
+    return <p className="mt-5">Loading bookmarks...</p>
+  }
 
   return (
 
@@ -41,20 +68,31 @@ export default function BookmarkList({ user }: any) {
 
         <div
           key={bookmark.id}
-          className="border p-3 mb-2 rounded"
+          className="border p-3 mb-2 rounded flex justify-between items-center"
         >
 
-          <div className="font-semibold">
-            {bookmark.title}
+          <div>
+
+            <div className="font-semibold">
+              {bookmark.title}
+            </div>
+
+            <a
+              href={bookmark.url}
+              target="_blank"
+              className="text-blue-500"
+            >
+              {bookmark.url}
+            </a>
+
           </div>
 
-          <a
-            href={bookmark.url}
-            target="_blank"
-            className="text-blue-500"
+          <button
+            onClick={() => handleDelete(bookmark.id)}
+            className="bg-red-500 text-white px-3 py-1 rounded"
           >
-            {bookmark.url}
-          </a>
+            Delete
+          </button>
 
         </div>
 
@@ -64,3 +102,4 @@ export default function BookmarkList({ user }: any) {
 
   )
 }
+
