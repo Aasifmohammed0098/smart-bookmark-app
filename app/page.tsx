@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
 
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
+    <div className="min-h-screen bg-gradient-to-br from-blue-200 via-purple-100 to-pink-200">
 
       <div className="max-w-2xl mx-auto p-6">
 
@@ -44,11 +44,11 @@ export default function Home() {
         <div className="bg-white shadow rounded p-4 flex justify-between items-center mb-5">
 
           <div>
-            <h1 className="text-xl font-bold">
+            <h1 className="text-xl font-bold text-gray-800">
               Smart Bookmark Manager
             </h1>
 
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-700 text-sm">
               {user.email}
             </p>
           </div>
