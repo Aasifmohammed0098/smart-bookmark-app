@@ -1,5 +1,5 @@
 "use client"
-
+import { Bookmark } from "lucide-react"
 import { useEffect, useState } from "react"
 import { supabase } from "@/lib/supabase"
 
@@ -57,10 +57,11 @@ export default function BookmarkList({ user }: any) {
       <h2 className="text-xl font-bold mb-3">Your Bookmarks</h2>
 
       {bookmarks.map((bookmark) => (
-        <div key={bookmark.id} className="border rounded p-3 mb-3 flex justify-between items-center hover:bg-gray-50 transition">
+        <div key={bookmark.id} className="bg-white/70 backdrop-blur border rounded-lg p-4 mb-3 flex justify-between items-center hover:shadow-md transition">
 
           <div>
-            <div className="font-semibold text-lg">{bookmark.title}</div>
+            <div className="flex items-center gap-2 font-semibold text-lg"> <Bookmark size={18} className="text-blue-500"/>
+{bookmark.title}</div>
             <a href={bookmark.url} target="_blank" className="text-blue-500 hover:underline">
               {bookmark.url}
             </a>
@@ -68,7 +69,7 @@ export default function BookmarkList({ user }: any) {
 
           <button
             onClick={() => deleteBookmark(bookmark.id)}
-            className="bg-red-500 text-white px-3 py-1 rounded"
+            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded shadow"
           >
             Delete
           </button>

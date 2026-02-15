@@ -35,7 +35,7 @@ export default function AddBookmark({ user }: any) {
 
   return (
 
-    <div>
+    <div className="bg-white/70 backdrop-blur rounded-lg p-4 shadow">
 
       <h2 className="text-lg font-semibold mb-3">
         Add New Bookmark
