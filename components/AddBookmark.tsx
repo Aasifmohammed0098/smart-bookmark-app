@@ -18,53 +18,56 @@ export default function AddBookmark({ user }: any) {
 
     setLoading(true)
 
-    const { error } = await supabase
+    await supabase
       .from("bookmarks")
       .insert([
         {
-          title: title,
-          url: url,
+          title,
+          url,
           user_id: user.id
         }
       ])
 
+    setTitle("")
+    setUrl("")
     setLoading(false)
-
-    if (error) {
-      alert(error.message)
-    } else {
-      alert("Bookmark saved successfully")
-      setTitle("")
-      setUrl("")
-    }
-
   }
 
   return (
-    <div className="mt-5">
 
-      <input
-        placeholder="Bookmark Title"
-        value={title}
-        onChange={(e)=>setTitle(e.target.value)}
-        className="border p-2 mr-2"
-      />
+    <div>
 
-      <input
-        placeholder="Bookmark URL"
-        value={url}
-        onChange={(e)=>setUrl(e.target.value)}
-        className="border p-2 mr-2"
-      />
+      <h2 className="text-lg font-semibold mb-3">
+        Add New Bookmark
+      </h2>
 
-      <button
-        onClick={handleAdd}
-        className="bg-green-500 text-white px-4 py-2"
-      >
-        {loading ? "Saving..." : "Add Bookmark"}
-      </button>
+      <div className="flex flex-col gap-3">
+
+        <input
+          placeholder="Bookmark Title"
+          value={title}
+          onChange={(e)=>setTitle(e.target.value)}
+          className="border rounded p-2"
+        />
+
+        <input
+          placeholder="Bookmark URL"
+          value={url}
+          onChange={(e)=>setUrl(e.target.value)}
+          className="border rounded p-2"
+        />
+
+        <button
+          onClick={handleAdd}
+          className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded"
+        >
+          {loading ? "Saving..." : "Add Bookmark"}
+        </button>
+
+      </div>
 
     </div>
   )
 }
+
 

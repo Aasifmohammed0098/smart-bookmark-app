@@ -57,18 +57,18 @@ export default function BookmarkList({ user }: any) {
       <h2 className="text-xl font-bold mb-3">Your Bookmarks</h2>
 
       {bookmarks.map((bookmark) => (
-        <div key={bookmark.id} className="border p-3 mb-2 flex justify-between">
+        <div key={bookmark.id} className="border rounded p-3 mb-3 flex justify-between items-center hover:bg-gray-50 transition">
 
           <div>
-            <div className="font-semibold">{bookmark.title}</div>
-            <a href={bookmark.url} target="_blank" className="text-blue-500">
+            <div className="font-semibold text-lg">{bookmark.title}</div>
+            <a href={bookmark.url} target="_blank" className="text-blue-500 hover:underline">
               {bookmark.url}
             </a>
           </div>
 
           <button
             onClick={() => deleteBookmark(bookmark.id)}
-            className="bg-red-500 text-white px-3 py-1"
+            className="bg-red-500 text-white px-3 py-1 rounded"
           >
             Delete
           </button>

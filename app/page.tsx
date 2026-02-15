@@ -21,22 +21,62 @@ export default function Home() {
     })
   }, [])
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    router.push("/login")
+  }
+
   if (!user) {
-    return <div>Loading...</div>
+    return (
+      <div className="flex items-center justify-center h-screen text-lg">
+        Loading...
+      </div>
+    )
   }
 
   return (
-    <div className="p-10">
 
-      <h1 className="text-2xl font-bold mb-5">
-        Welcome {user.email}
-      </h1>
+    <div className="min-h-screen bg-gray-100">
 
-      <AddBookmark user={user} />
+      <div className="max-w-2xl mx-auto p-6">
 
-      <BookmarkList user={user} />
+        {/* Header */}
+        <div className="bg-white shadow rounded p-4 flex justify-between items-center mb-5">
+
+          <div>
+            <h1 className="text-xl font-bold">
+              Smart Bookmark Manager
+            </h1>
+
+            <p className="text-gray-500 text-sm">
+              {user.email}
+            </p>
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+          >
+            Logout
+          </button>
+
+        </div>
+
+        {/* Add Bookmark */}
+        <div className="bg-white shadow rounded p-4 mb-5">
+          <AddBookmark user={user} />
+        </div>
+
+        {/* Bookmark List */}
+        <div className="bg-white shadow rounded p-4">
+          <BookmarkList user={user} />
+        </div>
+
+      </div>
 
     </div>
+
   )
 }
+
 
