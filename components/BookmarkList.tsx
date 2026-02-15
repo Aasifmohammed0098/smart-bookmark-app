@@ -24,29 +24,45 @@ export default function BookmarkList({ user }: any) {
     setLoading(false)
   }
 
+  // Real-time subscription
+  useEffect(() => {
+
+    fetchBookmarks()
+
+    const channel = supabase
+      .channel("bookmarks-channel")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "bookmarks"
+        },
+        () => {
+          fetchBookmarks()
+        }
+      )
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+
+  }, [])
+
   // Delete bookmark
   const handleDelete = async (id: string) => {
 
-    const confirmDelete = confirm("Are you sure you want to delete this bookmark?")
+    const confirmDelete = confirm("Delete this bookmark?")
 
     if (!confirmDelete) return
 
-    const { error } = await supabase
+    await supabase
       .from("bookmarks")
       .delete()
       .eq("id", id)
 
-    if (!error) {
-      fetchBookmarks()
-    } else {
-      alert("Error deleting bookmark")
-    }
-
   }
-
-  useEffect(() => {
-    fetchBookmarks()
-  }, [])
 
   if (loading) {
     return <p className="mt-5">Loading bookmarks...</p>
@@ -68,7 +84,7 @@ export default function BookmarkList({ user }: any) {
 
         <div
           key={bookmark.id}
-          className="border p-3 mb-2 rounded flex justify-between items-center"
+          className="border p-3 mb-2 rounded flex justify-between"
         >
 
           <div>
